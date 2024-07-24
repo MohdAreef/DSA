@@ -15,7 +15,7 @@ Explanation: You cannot rob house 1 (money = 2) and then rob house 3 (money = 2)
 */
 
 class Solution {
-    public int memoization1(int index, int[] nums, int[] dp) {
+    public int memoization(int index, int[] nums, int[] dp) {
         if (index == 0)
             return nums[index];
         if (index < 0)
@@ -25,24 +25,8 @@ class Solution {
             return dp[index];
         }
 
-        int pick = nums[index] + memoization1(index - 2, nums, dp);
-        int nonpick = memoization1(index - 1, nums, dp);
-
-        return dp[index] = Math.max(pick, nonpick);
-    }
-
-    public int memoization2(int index, int[] nums, int[] dp) {
-        if (index == 1)
-            return nums[index];
-        if (index < 1)
-            return 0;
-
-        if (dp[index] != -1) {
-            return dp[index];
-        }
-
-        int pick = nums[index] + memoization2(index - 2, nums, dp);
-        int nonpick = memoization2(index - 1, nums, dp);
+        int pick = nums[index] + memoization(index - 2, nums, dp);
+        int nonpick = memoization(index - 1, nums, dp);
 
         return dp[index] = Math.max(pick, nonpick);
     }
@@ -50,17 +34,27 @@ class Solution {
     public int rob(int[] nums) {
 
         int n = nums.length;
+        int[] temp1 = new int[n - 1];
+        int[] temp2 = new int[n - 1];
+        int size = temp1.length;
+        int i;
+        for (i = 0; i < n - 1; i++) {
+            temp1[i] = nums[i];
+        }
+        for (i = 1; i < n; i++) {
+            temp2[i - 1] = nums[i];
+        }
 
-       //edge case
         if (n == 1) {
             return nums[0];
         }
         int[] dp = new int[n];
+
         Arrays.fill(dp, -1);
 
-        int a = memoization1(n - 2, nums, dp);
+        int a = memoization(n - 2, temp1, dp);
         Arrays.fill(dp, -1);
-        int b = memoization2(n - 1, nums, dp);
+        int b = memoization(n - 2, temp2, dp);
 
         return Math.max(a, b);
 
