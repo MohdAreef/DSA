@@ -41,3 +41,48 @@ class Solution {
 
     }
 }
+
+
+*********************************************************************************************************************************************88
+// ANOTHER SOLUTION
+class Solution {
+    public int path(int r, int c, int m, int n, int[][] grid, int[][] dp) {
+        // base conditions
+        if (r == m && c == n)
+            return grid[r][c];
+
+        if (dp[r][c] != -1)
+            return dp[r][c];
+        // explore
+        int sum = (int) 1e9;
+        int[] rows = { 1, 0 };
+        int[] cols = { 0, 1 };
+
+        for (int i = 0; i < 2; i++) {
+            int newrow = r + rows[i];
+            int newcol = c + cols[i];
+
+            if (newrow >= 0 && newrow <= m && newcol >= 0 && newcol <= n) {
+                int a = grid[r][c] + path(newrow, newcol, m, n, grid, dp);
+                sum = Math.min(sum, a);
+            }
+        }
+
+        return dp[r][c] = sum;
+    }
+
+    public int minPathSum(int[][] grid) {
+
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i][j] = -1;
+            }
+        }
+
+        return path(0, 0, m - 1, n - 1, grid, dp);
+
+    }
+}
