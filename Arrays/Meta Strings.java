@@ -7,6 +7,7 @@ Meta strings are strings that can be made equal by swapping exactly one pair of 
 Note:
 Equal strings are not considered as meta strings. 
   */
+problem link    https://www.naukri.com/code360/problem-of-the-day/easy?leftPanelTabValue=PROBLEM
 public class Solution{
     public static boolean check(String s1,String s2)
     {
