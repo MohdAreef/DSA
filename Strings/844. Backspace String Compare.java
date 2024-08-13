@@ -50,3 +50,50 @@ class Solution {
         }
     }
 }
+
+
+OPTIMAL SOLUTION
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        int sBack = 0, tBack = 0;
+        int x = s.length() - 1, y = t.length() - 1;
+
+        while (x >= 0 || y >= 0) {
+            while (x >= 0) {
+                if (s.charAt(x) == '#') {
+                    sBack++;
+                    x--;
+                } else if (sBack > 0) {
+                    sBack--;
+                    x--;
+                } else {
+                    break;
+                }
+            }
+
+            while (y >= 0) {
+                if (t.charAt(y) == '#') {
+                    tBack++;
+                    y--;
+                } else if (tBack > 0) {
+                    tBack--;
+                    y--;
+                } else {
+                    break;
+                }
+            }
+
+            if (x >= 0 && y >= 0 && s.charAt(x) != t.charAt(y)) {
+                return false;
+            }
+
+            if ((x >= 0 && y < 0) || (y >= 0 && x < 0)) {
+                return false;
+            }
+            x--;
+            y--;
+        }
+
+        return true;
+    }
+}
