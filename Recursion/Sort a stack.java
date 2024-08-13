@@ -13,6 +13,26 @@ class GfG {
             s.push(stack.pop());
         }
     }
+    //recursive implementation of insert function
+     public void insert(int x,Stack<Integer> s)
+    {
+     
+        if(s.isEmpty())
+        {
+            s.push(x);
+            return ;
+        }
+        if(x>s.peek())
+        {
+            s.push(x);
+            return;
+        }
+        
+        int y=s.pop();
+        insert(x,s);
+        s.push(y);
+        
+    }
     public void stacksort(Stack<Integer> s)
     {
         if(s.size()==1)
