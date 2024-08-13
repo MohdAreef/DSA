@@ -31,15 +31,22 @@ class Solution {
         //pick close
         if(close>0)
         {
-            boolean flag=false;
+            // boolean flag=false;
+            // if(!stack.isEmpty())
+            // { stack.pop(); 
+            //   flag=true;
+            // }
+            // generate(open,close-1,stack,n,res,sb+")");
+            // if(flag==true)
+            // {
+            //     stack.push('(');
+            // }
             if(!stack.isEmpty())
-            { stack.pop(); 
-              flag=true;
-            }
-            generate(open,close-1,stack,n,res,sb+")");
-            if(flag==true)
             {
+                stack.pop();
+                generate(open,close-1,stack,n,res,sb+")");
                 stack.push('(');
+
             }
 
         }
