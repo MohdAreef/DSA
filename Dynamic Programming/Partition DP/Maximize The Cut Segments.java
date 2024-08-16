@@ -1,3 +1,4 @@
+//POD 
 /*
 Given an integer n denoting the Length of a line segment. You need to cut the line segment in such a way that the cut length of a line segment each 
 time is either x , y or z. Here x, y, and z are integers.
