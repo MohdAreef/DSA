@@ -59,3 +59,66 @@ class Solution {
         return match(n - 1, m - 1, p, s, dp);
     }
 }
+
+// other implementation
+
+class Solution {
+    public int match(int index1,String pattern ,int index2, String arr,int[][] dp)
+    {
+        //base condition
+        if(index1==pattern.length() && index2==arr.length())
+        {
+            return 1;
+        }
+        if((index1==pattern.length() && index2!=arr.length()) )
+        {
+            return 0;
+        }
+        if( (index1!=pattern.length() && index2==arr.length()))
+        {
+        
+                for(int j=index1;j<pattern.length();j++)
+                {
+                    if(pattern.charAt(j)!='*')
+                    return 0;
+                }
+                return 1;
+          
+        }
+        
+        if(dp[index1][index2]!=-1) return dp[index1][index2];
+        //explore
+        char c1=pattern.charAt(index1);
+        char c2=arr.charAt(index2);
+        int res=0;
+        if(c1==c2)
+        {
+            res= match(index1+1,pattern,index2+1,arr,dp);
+        }
+        else if(c1=='?')
+        {
+            res= match(index1+1,pattern,index2+1,arr,dp);
+        }
+        else if(c1=='*')
+        {
+            int  yes=match(index1,pattern,index2+1,arr,dp);
+            int  no=match(index1+1,pattern,index2,arr,dp);
+            if(yes==1 || no==1) res= 1;
+            else res= 0;
+        }
+        
+        return dp[index1][index2] = res;
+    }
+    public int wildCard(String pattern, String str) {
+        // Your code goes here
+        int m=pattern.length();
+        int n=str.length();
+        int[][] dp=new int[m][n];
+        for(int i[] :dp)
+        {
+            Arrays.fill(i,-1);
+        }
+        return match(0,pattern,0,str,dp);
+    }
+}
+
