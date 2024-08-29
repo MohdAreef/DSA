@@ -48,3 +48,25 @@ class Solution {
 
     }
 }
+
+
+// Another solution
+
+class Solution {
+    public TreeNode lowest(TreeNode node,TreeNode p,TreeNode q)
+    {
+        if(node==null) return null;
+        if(node.val==p.val || node.val==q.val) return node;
+
+        TreeNode left=lowest(node.left,p,q);
+        TreeNode right=lowest(node.right,p,q);
+
+        if(left==null) return right;
+        if(right==null) return left;
+
+        return node;
+    }
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+          return lowest(root,p,q);
+    }
+}
