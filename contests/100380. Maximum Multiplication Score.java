@@ -1,3 +1,4 @@
+// weekly contest  415
 /*
 You are given an integer array a of size 4 and another integer array b of size at least 4.
 
