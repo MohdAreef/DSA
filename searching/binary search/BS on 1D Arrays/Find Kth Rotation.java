@@ -10,6 +10,7 @@ Input: arr = [5, 1, 2, 3, 4]
 Output: 1
 Explanation: The given array is 5 1 2 3 4. The original sorted array is 1 2 3 4 5. We can see that the array was rotated 1 times to the right.
 */
+ // Trick :  find the first minimum element 
 
 class Solution {
     public int find(List<Integer> arr)
