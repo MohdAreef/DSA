@@ -29,3 +29,40 @@ class Solution {
         return ans;
     }
 }
+
+// SPACE OPTIMIZATION
+class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int[] prev = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            prev[i] = matrix[0][i];
+        }
+
+        for (int i = 1; i < n; i++) {
+            int[] curr = new int[n];
+            for (int j = 0; j < n; j++) {
+                int above_left = Integer.MAX_VALUE;
+                int above = Integer.MAX_VALUE;
+                int above_right = Integer.MAX_VALUE;
+                if (j - 1 >= 0) {
+                    above_left = matrix[i][j] + prev[j - 1];
+                }
+                above = matrix[i][j] + prev[j];
+
+                if (j + 1 < n)
+                    above_right = matrix[i][j] + prev[j + 1];
+
+                curr[j] = Math.min(above_left, Math.min(above, above_right));
+            }
+            prev = curr;
+            curr = null;
+        }
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            ans = Math.min(ans, prev[i]);
+        }
+        return ans;
+    }
+}
