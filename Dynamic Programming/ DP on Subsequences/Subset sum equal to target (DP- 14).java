@@ -93,3 +93,47 @@ class Solution {
         
     }
 }
+
+//SPACE OPTIMIZATION
+class Solution {
+
+    static Boolean isSubsetSum(int arr[], int target) {
+        // code here
+        int n=arr.length;
+        boolean[] prev=new boolean[target+1];
+        for(int tar=0;tar<=target;tar++)
+        {
+            if(tar==arr[0]) prev[tar]=true;
+            else 
+            prev[tar]=false;
+            
+        }
+     
+        prev[0]=true;
+        for(int index=1;index<n;index++)
+        {
+            boolean[] curr=new boolean[target+1];
+            curr[0]=true;
+            
+            for(int tar=1;tar<=target;tar++)
+            {
+                boolean pick=false;
+                if(tar-arr[index]>=0)
+                pick=prev[tar-arr[index]];
+                
+                boolean  nonpick=prev[tar];
+                
+                curr[tar] = pick || nonpick;
+                
+            }
+            
+            prev=curr;
+            curr=null;
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(prev[target]==true) return true;
+        }
+        return false;
+    }
+}
