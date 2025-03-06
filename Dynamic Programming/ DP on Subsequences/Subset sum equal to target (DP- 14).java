@@ -50,3 +50,46 @@ class Solution{
         return issumexists(N-1,sum,arr,dp);
     }
 }
+// TABULAIION 
+class Solution {
+
+    static Boolean isSubsetSum(int arr[], int target) {
+        // code here
+        int n=arr.length;
+        boolean[][] dp=new boolean[n][target+1];
+        
+        for(int tar=0;tar<=target;tar++)
+        {
+            if(tar==arr[0])  dp[0][tar]=true;
+            else 
+            dp[0][tar]=false;
+        }
+        
+        for(int index=0;index<n;index++)
+        {
+            dp[index][0]=true;
+        }
+        
+        for(int index=1;index<n;index++)
+        {
+            for(int tar=1;tar<=target;tar++)
+            {
+                boolean pick=false;
+                if(tar-arr[index]>=0)
+                pick=dp[index-1][tar-arr[index]];
+                
+                boolean  nonpick=dp[index-1][tar];
+                
+                dp[index][tar] = pick || nonpick;
+                
+            }
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            if(dp[i][target]==true) return true;
+        }
+        return false;
+        
+    }
+}
