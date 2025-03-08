@@ -118,3 +118,45 @@ class Solution {
 
     }
 }
+
+// SPACE OPTIMIZATION
+class Solution {
+
+    public int coinChange(int[] coins, int amount) {
+        int n = coins.length;
+
+        int[][] dp = new int[n][amount + 1];
+
+        int[] prev = new int[amount + 1];
+
+        prev[0] = 0;
+
+        for (int amt = 0; amt <= amount; amt++) {
+            if (amt % coins[0] == 0)
+                prev[amt] = amt / coins[0];
+            else
+                prev[amt] = (int) 1e9;
+        }
+
+        for (int index = 1; index < n; index++) {
+            int[] curr = new int[amount + 1];
+            curr[0] = 0;
+            for (int amt = 1; amt <= amount; amt++) {
+                int pick = (int) 1e9;
+                if (coins[index] <= amt) {
+                    pick = 1 + curr[amt - coins[index]];
+                }
+                int notpick = prev[amt];
+
+                curr[amt] = Math.min(pick, notpick);
+            }
+            prev = curr;
+            curr = null;
+        }
+
+        if (prev[amount] == (int) 1e9)
+            return -1;
+        return prev[amount];
+
+    }
+}
