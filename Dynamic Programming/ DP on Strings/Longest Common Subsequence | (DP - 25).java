@@ -8,7 +8,7 @@ relative order of the remaining characters.
 For example, "ace" is a subsequence of "abcde".
 A common subsequence of two strings is a subsequence that is common to both strings.
 */
-
+// MEMOIZATION
 class Solution {
     public int longest(int ind1, int ind2, String s1, String s2, int[][] dp) {
         if (ind1 < 0 || ind2 < 0)
@@ -30,5 +30,56 @@ class Solution {
         }
         return longest(m - 1, n - 1, text1, text2, dp);
 
+    }
+}
+// TABULATION
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        int n = text1.length();
+        int m = text2.length();
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 0; i < (m + 1); i++) {
+            dp[0][i] = 0;
+        }
+
+        for (int i = 0; i < (n + 1); i++) {
+            dp[i][0] = 0;
+        }
+
+        for (int index1 = 1; index1 < (n + 1); index1++) {
+            for (int index2 = 1; index2 < (m + 1); index2++) {
+                if (text1.charAt(index1 - 1) == text2.charAt(index2 - 1)) {
+                    dp[index1][index2] = 1 + dp[index1 - 1][index2 - 1];
+                } else {
+                    dp[index1][index2] = Math.max(dp[index1 - 1][index2], dp[index1][index2 - 1]);
+                }
+            }
+        }
+        return dp[n][m];
+    }
+}
+// SPACE OPTIMIZATION
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        int n = text1.length();
+        int m = text2.length();
+        int[] prev = new int[m + 1];
+        for (int i = 0; i < (m + 1); i++) {
+            prev[i] = 0;
+        }
+        for (int index1 = 1; index1 < (n + 1); index1++) {
+            int[] curr = new int[m + 1];
+            curr[0] = 0;
+            for (int index2 = 1; index2 < (m + 1); index2++) {
+                if (text1.charAt(index1 - 1) == text2.charAt(index2 - 1)) {
+                    curr[index2] = 1 + prev[index2 - 1];
+                } else {
+                    curr[index2] = Math.max(prev[index2], curr[index2 - 1]);
+                }
+            }
+            prev = curr;
+            curr = null;
+        }
+        return prev[m];
     }
 }
