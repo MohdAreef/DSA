@@ -40,3 +40,40 @@ class BSTIterator {
             node = node.left;
         }
     }
+    
+// Another Solution
+class BSTIterator {
+    List<Integer> list = new ArrayList<>();
+    int nextpointer = -1, size = 0;
+
+    public void inorder(TreeNode root) {
+        if (root == null)
+            return;
+
+        inorder(root.left);
+        list.add(root.val);
+        inorder(root.right);
+
+    }
+
+    public BSTIterator(TreeNode root) {
+        inorder(root);
+
+        size = list.size();
+
+    }
+
+    public int next() {
+        nextpointer++;
+        return list.get(nextpointer);
+
+    }
+
+    public boolean hasNext() {
+
+        if (nextpointer + 1 < size)
+            return true;
+        return false;
+
+    }
+}
